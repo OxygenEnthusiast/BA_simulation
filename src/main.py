@@ -1,10 +1,13 @@
-from datagen.walker import Walker
+from anim.ani import Animation
 
-bert = Walker()
+def main():
+    animation = Animation()
+    print(animation.walkers)
+    while animation.running:
+        animation.draw()
 
-for i in range(8):
-    bert.walk()
-    print(bert.pos)
 
+if __name__ == "__main__":
+    main()
 
 
