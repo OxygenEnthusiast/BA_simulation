@@ -1,13 +1,17 @@
 from anim.ani import Animation
+import argparse
 
-def main():
-    animation = Animation()
+def main(theorem):
+    animation = Animation(theorem)
     print(animation.walkers)
     while animation.running:
         animation.draw()
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="simulates random walkers")
+    parser.add_argument('theorem', type=str,choices=['no','il','clt','slln'], help='shortcut for theorem (no,il,clt,slln)')
+    args = parser.parse_args()
+    main(args.theorem)
 
 

@@ -1,5 +1,5 @@
 # Example file showing a circle moving on screen
-import pygame
+import pygame, math
 from .walker import Walker
 
 class Animation:
@@ -8,13 +8,21 @@ class Animation:
     speed = 1
     running = True
     dt = 0
-    iteration = 0 
+    iteration = 1
+
+    theorem_function_map = {
+            'no': lambda n: 100, 
+            'slln': lambda n: n,
+            'clt': lambda n: math.sqrt(n),
+            'il': lambda n: math.sqrt(2 * (n + 16) * math.log(math.log(n + 16)))
+            }
 
     def create_walkers(self):
-        self.walkers = [Walker(self.inital_walker_pos.copy()) for i in range(self.AMOUNT_OF_WALKERS)]
+        self.walkers = [Walker(self.inital_walker_pos.copy()) for _ in range(self.AMOUNT_OF_WALKERS)]
 
-    def __init__(self):
+    def __init__(self, theorem):
         pygame.init()
+        self.theorem = self.theorem_function_map[theorem]
         self.screen = pygame.display.set_mode((1280, 720))
         self.inital_walker_pos  = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
         self.clock = pygame.time.Clock()
@@ -24,7 +32,7 @@ class Animation:
         pygame.time.set_timer(self.TIMER_EVENT, self.speed)  # 1000 milliseconds = 1 second
 
     def transform_walkers(self, walker_pos):
-        res = self.inital_walker_pos + (walker_pos - self.inital_walker_pos) / (self.iteration/ 1000)
+        res = self.inital_walker_pos + (walker_pos - self.inital_walker_pos) / self.theorem(self.iteration)
         print(res)
         return res
 
@@ -34,7 +42,7 @@ class Animation:
 
     def walk_walkers(self):
         self.iteration += 1
-        for i, walker in enumerate(self.walkers):
+        for  walker in self.walkers:
             walker.walk()
 
     def handle_events(self):
@@ -48,6 +56,7 @@ class Animation:
         self.handle_events()
         self.walk_walkers()
         self.screen.fill("gray")
+        pygame.draw.circle(self.screen, "lightgray", self.inital_walker_pos, 100)
         self.draw_figures()
         pygame.display.flip()
         self.dt = self.clock.tick(240) / 1000

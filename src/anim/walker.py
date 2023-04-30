@@ -10,7 +10,7 @@ class Walker:
         self.color = pygame.Color(randint(0, 255), randint(0, 255), randint(0, 255))
 
     def gen(self):
-        random_x_step, random_y_step = choice([-1,1]),choice([-1,1])
+        random_x_step, random_y_step = choice([-100,100]),choice([-100,100])
         self.nums.append((random_x_step, random_y_step))
         return pygame.Vector2(random_x_step,random_y_step)
 
