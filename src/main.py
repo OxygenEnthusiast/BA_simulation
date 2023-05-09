@@ -10,7 +10,7 @@ def main(theorem):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="simulates random walkers")
-    parser.add_argument('theorem', type=str,choices=['no','il','clt','slln'], help='shortcut for theorem (no,il,clt,slln)')
+    parser.add_argument('theorem', type=str,choices=['no','il','clt','slln'], help='shortcut for theorem')
     args = parser.parse_args()
     main(args.theorem)
 
