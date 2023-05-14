@@ -3,7 +3,6 @@ import argparse
 
 def main(theorem):
     animation = Animation(theorem)
-    print(animation.walkers)
     while animation.running:
         animation.draw()
 

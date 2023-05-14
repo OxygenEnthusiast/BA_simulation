@@ -16,3 +16,4 @@ class Walker:
 
     def walk(self):
         self.pos += self.gen()
+
