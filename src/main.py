@@ -1,4 +1,4 @@
-from anim.ani import Animation
+from anim.newani import Animation
 import argparse
 
 def main(theorem):
